@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package>
+	<name>imu_calibration</name>
+	<version>1.0.0</version>
+	<description>Calibrate an IMU via ros messages</description>
+
+	<maintainer email="davide.tateo@polimi.it">Davide Tateo</maintainer>
+
+	<license>GPLv3</license>
+
+	<author email="davide.tateo@polimi.it">Davide Tateo</author>
+
+	<buildtool_depend>catkin</buildtool_depend>
+
+	<build_depend>roscpp</build_depend>
+        <build_depend>std_msgs</build_depend>
+
+	<run_depend>roscpp</run_depend>
+
+</package>
