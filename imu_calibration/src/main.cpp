@@ -26,36 +26,20 @@
 
 #include <ros/ros.h>
 
-#include "CommandLineParser.h"
+#include "CalibrationLogic.h"
+
 
 int main(int argc, char** argv)
 {
-	CommandLineParser cl;
 
 	// Initialise ROS
-	ros::init(argc, argv, "SignalGenerator");
+	ros::init(argc, argv, "ImuCalibration");
 	ros::NodeHandle ros_node;
 
-	// Parse command line
-	bool ok = cl.parseCommandLine(argc, argv);
-	Signal* signal =  nullptr;
-	signal = cl.getSignal(ros_node);
-	double freq = cl.getSampligFrequency();
+	//start calibration dispatcher
+	CalibrationLogic logic(ros_node);
 
-	if (ok && signal)
-	{
-		ros::Rate r(freq);
-
-		// Start serial comunication
-		while (ros::ok())
-		{
-			signal->emitSignalStep(freq);
-			ros::spinOnce();
-			r.sleep();
-		}
-
-		delete signal;
-	}
+	ros::spin();
 
 	return 0;
 }

@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 
 find_package(catkin REQUIRED COMPONENTS roscpp
-                                        std_msgs)
+                                        std_msgs
+                                        hardware_tools_msgs)
 
-find_package(Boost REQUIRED COMPONENTS program_options)
+find_package(Armadillo REQUIRED)
 
 project(imu_calibration)
 
@@ -22,7 +23,7 @@ add_executable(${PROJECT_NAME} ${IC_SRC})
                     
                                  
 #link libriaries
-target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES} ${ARMADILLO_LIBRARIES})
                        
 #add dependencies to generated messages
 add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
