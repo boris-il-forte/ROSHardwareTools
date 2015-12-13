@@ -73,7 +73,11 @@ arma::mat FIRfilter::filtfilt()
 
 	//forward computation
 	for (unsigned int i = 0; i < elemN; i++)
-		forward.col(i) = arma::conv(inputMat.col(i), b);
+	{
+		arma::vec extended = arma::join_vert(zi*inputMat(0, 1), inputMat.col(i));
+		arma::vec extendedFiltered = arma::conv(extended, b);
+		forward.col(i) = extendedFiltered.rows(zi.n_elem +1, extendedFiltered.n_elem -1);
+	}
 
 	//backward computation
 	forward = arma::flipud(forward);
