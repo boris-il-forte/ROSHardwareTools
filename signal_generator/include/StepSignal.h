@@ -11,16 +11,17 @@
 class StepSignal : public Signal
 {
 public:
-	StepSignal(ros::NodeHandle& n, const std::string& topic, double amplitude, double time)
+	StepSignal(ros::NodeHandle& n, const std::string& topic, double amplitude, double time, double offset)
 		: Signal(n, topic)
 	{
 		a = amplitude;
 		tUp = time;
+		o = offset;
 	}
 
 	virtual double computeSignalValue(double t) override
 	{
-		return (t > tUp) ? a : 0.0;
+		return (t > tUp) ? a + o : o;
 	}
 
 
@@ -28,6 +29,7 @@ public:
 private:
 	double tUp;
 	double a;
+	double o;
 
 
 };

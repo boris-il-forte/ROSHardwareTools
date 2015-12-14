@@ -62,39 +62,19 @@ void validate(boost::any& v, const std::vector<std::string>& values,
 CommandLineParser::CommandLineParser() :
 			desc("Usage")
 {
-	options_description common("common options");
-	common.add_options() //
+	desc.add_options() //
 	("help,h", "produce help message") //
 	("signal,s", value<SupportedSignals>()->default_value(SIN, "sin"),
 				"selects the signal to generate") //
 	("sampling-frequency,x", value<double>()->default_value(100),
 				"set the sampling frequency of signal") //
 	("output-topic,o", value<string>()->default_value("/signal"),
-				"the output topic");
-
-	options_description sin("sin options");
-	sin.add_options() //
-	("amplitude,a", value<double>()->default_value(1.0),
-				"amplitude of sin function") //
-	("frequency,f", value<double>()->default_value(5.0),
-				"frequency of sin function");
-
-	options_description pwm("pwm options");
-	pwm.add_options() //
-	("amplitude,a", value<double>()->default_value(1.0),
-				"amplitude of pwm function") //
-	("duty-cycle,d", value<double>()->default_value(0.5), "duty cycle of pwm") //
-	("frequency,f", value<double>()->default_value(5.0),
-				"frequency of pwm function");
-
-	options_description step("step options");
-	step.add_options() //
-	("amplitude,a", value<double>()->default_value(1.0),
-				"amplitude of step function") //
-	("time,t", value<double>()->default_value(0.0),
-				"start time of step function");
-
-	desc.add(common).add(sin).add(pwm).add(step);
+				"set the output topic") //
+	("amplitude,a", value<double>()->default_value(1.0), "set amplitude") //
+	("frequency,f", value<double>()->default_value(5.0), "set frequency") //
+	("duty-cycle,d", value<double>()->default_value(0.5), "set duty cycle") //
+	("time,t", value<double>()->default_value(0.0), "set start time") //
+	("offset", value<double>()->default_value(5.0));
 
 }
 
@@ -133,26 +113,25 @@ Signal* CommandLineParser::getSignal(ros::NodeHandle& n)
 	SupportedSignals reader = vm["signal"].as<SupportedSignals>();
 	std::string topic = vm["output-topic"].as<string>();
 
+	double frequency = vm["frequency"].as<double>();
+	double dutyCycle = vm["duty-cycle"].as<double>();
+	double amplitude = vm["amplitude"].as<double>();
+	double time = vm["time"].as<double>();
+	double offset = vm["offset"].as<double>();
+
 	switch (reader)
 	{
 		case SIN:
 		{
-			double frequency = vm["frequency"].as<double>();
-			double amplitude = vm["amplitude"].as<double>();
-			return new SinSignal(n, topic, frequency, amplitude);
+			return new SinSignal(n, topic, frequency, amplitude, offset);
 		}
 		case PWM:
 		{
-			double frequency = vm["frequency"].as<double>();
-			double dutyCycle = vm["duty-cycle"].as<double>();
-			double amplitude = vm["amplitude"].as<double>();
-			return new PwmSignal(n, topic, frequency, amplitude, dutyCycle);
+			return new PwmSignal(n, topic, frequency, amplitude, dutyCycle, offset);
 		}
 		case STEP:
 		{
-			double amplitude = vm["amplitude"].as<double>();
-			double time = vm["time"].as<double>();
-			return new StepSignal(n, topic, amplitude, time);
+			return new StepSignal(n, topic, amplitude, time, offset);
 		}
 		default:
 			throw std::logic_error("This should not happen");

@@ -11,19 +11,20 @@
 class PwmSignal : public Signal
 {
 public:
-	PwmSignal(ros::NodeHandle& n, const std::string& topic, double frequency, double amplitude, double dutyCycle)
+	PwmSignal(ros::NodeHandle& n, const std::string& topic, double frequency, double amplitude, double dutyCycle, double offset)
 		: Signal(n, topic)
 	{
 		a = amplitude;
 		tUp = dutyCycle/frequency;
 		T = 1/frequency;
+		o = offset;
 	}
 
 	virtual double computeSignalValue(double t) override
 	{
 		double tMod = std::fmod(t, T);
 
-		return (tMod > tUp) ? 0 : a;
+		return (tMod > tUp) ? o : o + a;
 	}
 
 
@@ -32,6 +33,7 @@ private:
 	double tUp;
 	double a;
 	double T;
+	double o;
 
 
 };
