@@ -74,7 +74,7 @@ CommandLineParser::CommandLineParser() :
 	("frequency,f", value<double>()->default_value(5.0), "set frequency") //
 	("duty-cycle,d", value<double>()->default_value(0.5), "set duty cycle") //
 	("time,t", value<double>()->default_value(0.0), "set start time") //
-	("offset", value<double>()->default_value(5.0));
+	("offset", value<double>()->default_value(0.0));
 
 }
 

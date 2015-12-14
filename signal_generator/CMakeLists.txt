@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 
 find_package(catkin REQUIRED COMPONENTS roscpp
-                                        std_msgs
-                                        serial_to_ros_msgs)
+                                        std_msgs)
 
 find_package(Boost REQUIRED COMPONENTS program_options)
 
