@@ -33,7 +33,7 @@
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-		<project id="serial_to_ros_msgs.null.100947471" name="serial_to_ros_msgs"/>
+		<project id="hardware_tools_msgs.null.100947471" name="serial_to_ros_msgs"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration">
 		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
