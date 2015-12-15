@@ -1,8 +1,6 @@
 /*
- * SerialToRos, Read stuff from serial and publish to ros
+ * imu_calibration, Calibrates an IMU
  *
- * Copyright (C) 2012 Politecnico di Milano
- * Copyright (C) 2012 Marcello Pogliani, Davide Tateo
  * Copyright (C) 2015 Davide Tateo
  * Versione 1.0
  *
