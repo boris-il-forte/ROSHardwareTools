@@ -3,9 +3,7 @@ cmake_minimum_required(VERSION 2.8.3)
 find_package(catkin REQUIRED COMPONENTS roscpp
                                         std_msgs)
 
-find_package(Boost REQUIRED COMPONENTS program_options)
-
-project(signal_generator)
+project(signal_smoother)
 
 catkin_package()
 
@@ -14,10 +12,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 include_directories(include ${catkin_INCLUDE_DIRS})
 
 #build the node
-file(GLOB_RECURSE SG_SRC 
+file(GLOB_RECURSE SM_SRC 
                   src/*.cpp) 
 
-add_executable(${PROJECT_NAME} ${SG_SRC})
+add_executable(${PROJECT_NAME} ${SM_SRC})
                             
 #Install executables
 install(TARGETS ${PROJECT_NAME}
